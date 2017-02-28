@@ -12,7 +12,7 @@
 </head>
 <body>
 <form action="/user/add" method="post">
-    姓名:<input type="text" name="name" /><br />
+    姓名:<input type="text" name="username" /><br />
     密码:<input type="password" name="password" /><br />
     <input type="submit" value="保存" />
 </form>

@@ -74,5 +74,6 @@
         });
     });
 </script>
+<a href="/user/login">ssss</a>
 </body>
 </html>

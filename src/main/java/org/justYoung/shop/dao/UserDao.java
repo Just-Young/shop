@@ -27,6 +27,9 @@ public class UserDao implements IUserDao {
 
     @Override
     public List<User> list() {
-        return userMapper.list();
+        List<User> lists = userMapper.list();
+        return lists;
     }
+
+
 }

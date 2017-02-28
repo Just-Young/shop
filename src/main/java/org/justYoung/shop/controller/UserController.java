@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/2/24.
@@ -42,16 +44,46 @@ public class UserController {
         model.addAttribute("show",user);
         return "user/show";
     }
-    @RequestMapping("/login")
-    public String login(String name,String password){
+    //登录功能
+    @RequestMapping(value = "/login" , method = RequestMethod.GET)
+    public String login(){
+        return "user/login";
+    }
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public String login(String name,String password,Model model){
        List<User> users= userService.loginlist();
         for(User u:users){
-           String nn= u.getName();
-            String pp=u.getPassword();
-            if(nn.equals(name)&&pp.equals(password)){
+            String uname= u.getUsername();
+            String psw=u.getPassword();
+            if(uname.equals(name)&& psw.equals(password)){
                 return "user/list";
             }
         }
+        String MSG="用户名或密码错误";
+        model.addAttribute("msg",MSG);
        return "user/login";
+    }
+    //注册
+    @RequestMapping(value = "/regist" ,method = RequestMethod.GET)
+    public String regist(){
+        return "user/regist";
+    }
+    @RequestMapping(value = "/regist" ,method = RequestMethod.POST)
+    public String regist(User user,String username,String password,String repassword ,Model model){
+        List<User> users= userService.loginlist();
+        for(User u:users){
+           String uname= u.getUsername();
+            if(uname.equals(username)){
+                String mes="此用户名已存在,请重新输入";
+                model.addAttribute("mess",mes);
+                return "user/regist";
+            }if(password.equals(repassword)) {
+                userService.add(user);
+                return "user/login";
+            }
+        }
+        String message="两次输入的密码不一致,请重新输入";
+        model.addAttribute("msg",message);
+        return "user/regist";
     }
 }

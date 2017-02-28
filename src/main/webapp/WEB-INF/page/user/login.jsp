@@ -11,11 +11,12 @@
     <title>登录</title>
 </head>
 <body>
-<form>
+<form action="/user/login" method="post">
     用户名:<input type="text" name="name"/><br/>
     密码:<input type="password" name="password"/><br/>
     <input type="submit" value="登录"/>||
-    <input type="submit" value="注册"/>
+   <a href="/user/regist" > <input type="button" value="注册"/></a><br/>
+    ${msg}
 </form>
 </body>
 </html>

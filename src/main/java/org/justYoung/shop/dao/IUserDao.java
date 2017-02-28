@@ -12,4 +12,5 @@ public interface IUserDao {
     User load(int id);
     List<User> list();
 
+
 }
