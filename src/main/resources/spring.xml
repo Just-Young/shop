@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 从哪个包中寻找注解-->
+    <context:component-scan base-package="org.justYoung.shop" />
+
+    <!-- 配置数据源-->
+    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/e-shop"/>
+        <property name="username" value="root"/>
+        <property name="password" value="HMJ18"/>
+    </bean>
+
+    <!-- 配置SessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="typeAliasesPackage" value="org.justYoung.shop.model" />
+    </bean>
+
+    <!-- 基于Mapper接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.justYoung.shop.mapper"/>
+    </bean>
+
+    <!-- 创建事务管理器-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入dataSource-->
+        <property name="dataSource" ref="myDataSource" />
+    </bean>
+
+    <!-- spring事务的实现是基于AOP方式-->
+    <aop:config>
+        <!-- 定义切入点-->
+        <aop:pointcut id="allMethod" expression="execution(* org.justYoung.shop.dao.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="allMethod" />
+    </aop:config>
+
+    <!-- 配置事务增强，哪些方法使用什么样的规则-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!-- 以下表示所有的方法都加入事务-->
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+</beans>
