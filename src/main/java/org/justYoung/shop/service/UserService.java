@@ -24,5 +24,10 @@ public class UserService implements IUserService {
     public User load(int id) {
         return userDao.load(id);
     }
+
+    @Override
+    public List<User> loginlist() {
+        return userDao.list();
+    }
 }
 

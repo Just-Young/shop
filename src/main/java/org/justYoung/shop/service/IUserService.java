@@ -10,4 +10,5 @@ import java.util.List;
 public interface IUserService {
     void add(User user);
     User load(int id);
+    List<User> loginlist();
 }

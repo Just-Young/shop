@@ -5,6 +5,8 @@ import org.justYoung.shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/2/24.
  */
@@ -21,5 +23,10 @@ public class UserDao implements IUserDao {
     @Override
     public User load(int id) {
         return userMapper.load(id);
+    }
+
+    @Override
+    public List<User> list() {
+        return userMapper.list();
     }
 }

@@ -42,4 +42,16 @@ public class UserController {
         model.addAttribute("show",user);
         return "user/show";
     }
+    @RequestMapping("/login")
+    public String login(String name,String password){
+       List<User> users= userService.loginlist();
+        for(User u:users){
+           String nn= u.getName();
+            String pp=u.getPassword();
+            if(nn.equals(name)&&pp.equals(password)){
+                return "user/list";
+            }
+        }
+       return "user/login";
+    }
 }
