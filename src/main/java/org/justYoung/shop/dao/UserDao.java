@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/2/24.
@@ -29,6 +30,11 @@ public class UserDao implements IUserDao {
     public List<User> list() {
         List<User> lists = userMapper.list();
         return lists;
+    }
+
+    @Override
+    public User getUserByParam(Map<String, Object> params) {
+        return userMapper.getUserByParam(params);
     }
 
 

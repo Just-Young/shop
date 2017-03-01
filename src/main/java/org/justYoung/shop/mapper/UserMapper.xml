@@ -10,4 +10,15 @@
     <insert id="add" parameterType="User">
         insert into tb_user(username,password,phone,email) values(#{username},#{password},#{phone},#{email});
     </insert>
+    <select id="getUserByParam" parameterType="map" resultType="User">
+        select * from tb_user
+        <where>
+            <if test="username!=null">
+            username = #{username}
+            </if>
+            <if test="password!=null">
+            and password = #{password}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -11,6 +11,9 @@
     <title>注册</title>
 </head>
 <body>
+<script type="text/javascript">
+
+</script>
 <form action="/user/regist" method="post"><br/>
     用户名:<input type="text" name="username"/>${mess}<br/>
     密码:<input type="password" name="password"/><br/>

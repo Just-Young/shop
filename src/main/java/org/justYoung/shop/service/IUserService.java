@@ -11,4 +11,7 @@ public interface IUserService {
     void add(User user);
     User load(int id);
     List<User> loginlist();
+    User login(String username,String password);
+    boolean checkByUname(String username);//这个是注册时检查用户名是否一致的方法
+
 }

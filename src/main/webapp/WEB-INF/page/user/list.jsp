@@ -11,6 +11,6 @@
     <title>用户列表</title>
 </head>
 <body>
-用户列表。。。
+用户列表。。。欢迎|${curUser.username}|登录
 </body>
 </html>
